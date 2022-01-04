@@ -22,6 +22,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+!.dvc
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -75,8 +76,8 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# exclude data from source control by default
-/data/
+# # exclude data from source control by default
+# /data/
 
 # Mac OS-specific storage files
 .DS_Store
