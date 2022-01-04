@@ -22,10 +22,6 @@ base_dir = os.getcwd()
 print("base_dir: ", base_dir)
 activation = {}
 
-
-
-
-
 def get_activation(name):
     def hook(model, input, output):
         activation[name] = output.detach()
@@ -45,7 +41,7 @@ def visualize():
     
     criterion = nn.NLLLoss()
     
-    test_images, test_labels = unpack_npz("/" + args.images)
+    test_loader = unpack_npz("/" + args.images)
     
     # model.conv3.register_forward_hook(get_activation("conv3"))
     # output = model(test_images[1].float().unsqueeze(dim=2).unsqueeze(dim=3))
@@ -53,18 +49,18 @@ def visualize():
     
     dirname = base_dir + "/reports/figures/" + datetime.now().strftime("%d-%m-%Y-%H:%M:%S")
     os.makedirs(dirname)
-    for i in range(5):
-        plt.clf()
+    i = 0
+    for images, labels in test_loader:
         model.conv3.register_forward_hook(get_activation("conv3"))
-        output = model(test_images[1].float().unsqueeze(dim=2).unsqueeze(dim=3))
+        output = model(images[1].float().unsqueeze(dim=0).unsqueeze(dim=1))
         aslkdj = (activation["conv3"])
-    
-        X_embedded = TSNE(n_components=2, learning_rate="auto", init="random").fit_transform(np.array(aslkdj.squeeze().squeeze()))
-        print(X_embedded.shape)
+        
+        X_embedded = TSNE(n_components=2, learning_rate="auto", init="random").fit_transform(np.array(aslkdj[0][0]))
 
         plt.scatter(X_embedded[:,0], X_embedded[:,1], marker='o')
         
-        plt.savefig(dirname + "/Training_loss_" + str(i) + ".png")    
+        plt.savefig(dirname + "/Training_loss_" + str(i) + ".png")   
+        i += 1 
 
 if __name__ == '__main__':
     visualize()

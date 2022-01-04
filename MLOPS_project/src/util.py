@@ -6,6 +6,8 @@ import numpy as np
 
 from torch import nn, optim
 from torch.autograd import Variable
+# from torch.utils.data.dataset import TensorDataset
+from torch.utils.data import TensorDataset, DataLoader
 
 
 base_dir = os.getcwd()
@@ -47,7 +49,7 @@ def save_losses(loss, make_image = True, make_txt = True):
                 txt_file.write(str(line) + "\n")
         print(f'Saved loss file in {dirname}/ as loss.txt')
 
-def unpack_npz(dir):
+def unpack_npz(dir, batch_size = 64, shuffle = True):
     """Unpacking npz files to tensors.
 
     Args:
@@ -62,8 +64,11 @@ def unpack_npz(dir):
     tmp = np.load(base_dir + dir)
     images = torch.tensor(tmp['images'])
     labels = torch.tensor(tmp['labels'])
+    
+    tmp_dataset = TensorDataset(images, labels)
+    tmp_dataloader = DataLoader(tmp_dataset, batch_size=batch_size, shuffle=shuffle)
     print("Done unpacking")
-    return images, labels
+    return tmp_dataloader
 
 def test_network(net, trainloader):
 
