@@ -16,11 +16,7 @@ class MyAwesomeModel(nn.Module):
         self.dropout = nn.Dropout(p=0.1)
         
     def forward(self, x):
-        # make sure input tensor is flattened
-        # x = torch.flatten(x)
-        # print("5", x.size())
-        # print(x) 
-        # print("6", x.size())
+        x = x.float().unsqueeze(dim=1)
         x = self.dropout(F.relu(self.conv1(x)))
         x = self.dropout(F.relu(self.conv2(x)))
         x = self.dropout(F.relu(self.conv3(x)))
