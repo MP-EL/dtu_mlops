@@ -17,7 +17,6 @@ from util import is_docker, save_losses, save_model, unpack_npz
 base_dir = os.getcwd()
 print("base_dir: ", base_dir)
 
-
 def train():
     print("is docker", is_docker())
     model = MyAwesomeModel()
