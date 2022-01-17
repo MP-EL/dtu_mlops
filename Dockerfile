@@ -14,5 +14,5 @@ COPY data/ data/
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "MLOPS_project/src/train_model.py"]
+ENTRYPOINT ["python", "-u", "src/train_model.py"]
 
