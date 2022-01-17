@@ -11,8 +11,9 @@ from torch import nn, optim
 from torch._C import Block
 
 # from data import mnist
-from models.model import MyAwesomeModel
-from util import is_docker, save_losses, save_model, unpack_npz
+from src.models.model import MyAwesomeModel
+from src.util import is_docker, save_losses, save_model, unpack_npz
+# from util import is_docker, save_losses, save_model, unpack_npz
 
 base_dir = os.getcwd()
 print("base_dir: ", base_dir)
