@@ -1,3 +1,4 @@
+from email.mime import base
 import os
 from datetime import datetime
 import torch
@@ -14,6 +15,12 @@ from torch.utils.data import TensorDataset, DataLoader
 base_dir = os.getcwd()
 print("base_dir: ", base_dir)
 
+
+
+def find(name, path):
+    for root, dirs, files in os.walk(path):
+        if name in files:
+            return os.path.join(root, name)
 
 def is_docker():
     path = "/proc/self/cgroup"
@@ -79,7 +86,10 @@ def unpack_npz(dir, batch_size=64, shuffle=True):
     """
 
     print("Unpacking npz")
-    tmp = np.load(base_dir + dir)
+    file =find("train.npz", base_dir)
+    print("find", file)
+    
+    tmp = np.load(file)
     images = torch.tensor(tmp["images"])
     labels = torch.tensor(tmp["labels"])
 
