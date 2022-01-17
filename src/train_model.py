@@ -22,7 +22,7 @@ def train():
     print("is docker", is_docker())
     model = MyAwesomeModel()
     # train_images, train_labels, _ = mnist()
-    train_loader = unpack_npz("/data/processed/train.npz")
+    train_loader = unpack_npz("data/processed/train.npz")
 
     criterion = nn.NLLLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.003)
