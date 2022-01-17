@@ -1,6 +1,0 @@
-[core]
-    remote = remote_storage
-['remote "storage"']
-    url = gdrive://1BKBRtzIRXWAIvIVyj2NHpbjw8EAV833h
-['remote "remote_storage"']
-    url = gs://instance-first-1-bucket/
